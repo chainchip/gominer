@@ -1,7 +1,7 @@
 # gominer
 
 gominer is an application for performing Proof-of-Work (PoW) mining on the
-Decred network.  It supports solo and stratum/pool mining using CUDA and
+Hcash network.  It supports solo and stratum/pool mining using CUDA and
 OpenCL devices.
 
 ## Downloading
