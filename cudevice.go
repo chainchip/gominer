@@ -21,9 +21,9 @@ import (
 
 	"github.com/barnex/cuda5/cu"
 
-	"github.com/decred/gominer/nvml"
-	"github.com/decred/gominer/util"
-	"github.com/decred/gominer/work"
+	"github.com/chainchip/gominer/nvml"
+	"github.com/chainchip/gominer/util"
+	"github.com/chainchip/gominer/work"
 )
 
 const (
@@ -313,7 +313,8 @@ func (d *Device) runDevice() error {
 			return nil
 		default:
 		}
-
+		// Check extraNonce.
+		util.CheckExtraNonce(&d.extraNonce)
 		// Increment extraNonce.
 		util.RolloverExtraNonce(&d.extraNonce)
 		d.lastBlock[work.Nonce1Word] = util.Uint32EndiannessSwap(d.extraNonce)

@@ -19,9 +19,9 @@ import (
 
 	"github.com/btcsuite/go-socks/socks"
 
-	"github.com/decred/gominer/stratum"
-	"github.com/decred/gominer/util"
-	"github.com/decred/gominer/work"
+	"github.com/chainchip/gominer/stratum"
+	"github.com/chainchip/gominer/util"
+	"github.com/chainchip/gominer/work"
 )
 
 // newHTTPClient returns a new HTTP client that is configured according to the

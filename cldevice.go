@@ -20,9 +20,9 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/decred/gominer/cl"
-	"github.com/decred/gominer/util"
-	"github.com/decred/gominer/work"
+	"github.com/chainchip/gominer/cl"
+	"github.com/chainchip/gominer/util"
+	"github.com/chainchip/gominer/work"
 )
 
 // Return the GPU library in use.
@@ -617,7 +617,7 @@ func (d *Device) runDevice() error {
 	// when you begin mining. This ensures each device is doing
 	// different work. If the extraNonce has already been
 	// set for valid work, restore that.
-	d.extraNonce += uint32(d.index) << 24
+	d.extraNonce += uint32(d.index) << 16
 	d.lastBlock[work.Nonce1Word] = util.Uint32EndiannessSwap(d.extraNonce)
 
 	var status cl.CL_int
@@ -630,6 +630,8 @@ func (d *Device) runDevice() error {
 		default:
 		}
 
+		// Check extraNonce.
+		util.CheckExtraNonce(&d.extraNonce)
 		// Increment extraNonce.
 		util.RolloverExtraNonce(&d.extraNonce)
 		d.lastBlock[work.Nonce1Word] = util.Uint32EndiannessSwap(d.extraNonce)

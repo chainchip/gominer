@@ -16,10 +16,10 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/decred/gominer/adl"
-	"github.com/decred/gominer/cl"
-	"github.com/decred/gominer/util"
-	"github.com/decred/gominer/work"
+	"github.com/chainchip/gominer/adl"
+	"github.com/chainchip/gominer/cl"
+	"github.com/chainchip/gominer/util"
+	"github.com/chainchip/gominer/work"
 )
 
 // Return the GPU library in use.
@@ -475,7 +475,8 @@ func (d *Device) runDevice() error {
 			return nil
 		default:
 		}
-
+		// Check extraNonce.
+		util.CheckExtraNonce(&d.extraNonce)
 		// Increment extraNonce.
 		util.RolloverExtraNonce(&d.extraNonce)
 		d.lastBlock[work.Nonce1Word] = util.Uint32EndiannessSwap(d.extraNonce)

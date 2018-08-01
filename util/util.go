@@ -46,7 +46,7 @@ func ReverseToInt(s string) (int32, error) {
 // RevHash reverses a hash in string format.
 func RevHash(hash string) string {
 	revHash := ""
-	for i := 0; i < 7; i++ {
+	for i := 0; i < 8; i++ {
 		j := i * 8
 		part := fmt.Sprintf("%c%c%c%c%c%c%c%c",
 			hash[6+j], hash[7+j], hash[4+j], hash[5+j],
@@ -81,10 +81,20 @@ func DiffToTarget(diff float64, powLimit *big.Int) (*big.Int, error) {
 // RolloverExtraNonce rolls over the extraNonce if it goes over 0x00FFFFFF many
 // hashes, since the first byte is reserved for the ID.
 func RolloverExtraNonce(v *uint32) {
-	if *v&0x00FFFFFF == 0x00FFFFFF {
-		*v = *v & 0xFF000000
+	if *v&0x0000FFFF == 0x0000FFFF {
+		*v = *v & 0xFFFF0000
 	} else {
 		*v++
+	}
+}
+
+func CheckExtraNonce(v *uint32) {
+	if *v > 0x00650000 || *v&0xFFFF > (12 * 3000){
+		//fmt.Printf("ExtraNonce ======================================= %04x\n", v)
+		*v = 0x00000000
+	}
+	if *v&0xFFFF % 3000 >= 120 {
+		*v = *v + 3000 - 120
 	}
 }
 

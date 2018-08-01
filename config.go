@@ -16,7 +16,7 @@ import (
 
 	"github.com/btcsuite/btclog"
 	"github.com/btcsuite/go-flags"
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/HcashOrg/hcutil"
 )
 
 const (
@@ -28,8 +28,8 @@ const (
 )
 
 var (
-	minerHomeDir          = dcrutil.AppDataDir("gominer", false)
-	dcrdHomeDir           = dcrutil.AppDataDir("dcrd", false)
+	minerHomeDir          = hcutil.AppDataDir("gominer", false)
+	dcrdHomeDir           = hcutil.AppDataDir("dcrd", false)
 	defaultConfigFile     = filepath.Join(minerHomeDir, defaultConfigFilename)
 	defaultRPCServer      = "localhost"
 	defaultRPCCertFile    = filepath.Join(dcrdHomeDir, "rpc.cert")

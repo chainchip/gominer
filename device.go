@@ -8,13 +8,13 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/decred/dcrd/blockchain"
-	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrd/chaincfg/chainhash"
+	"github.com/HcashOrg/hcd/blockchain"
+	"github.com/HcashOrg/hcd/chaincfg"
+	"github.com/HcashOrg/hcd/chaincfg/chainhash"
 
-	"github.com/decred/gominer/blake256"
-	"github.com/decred/gominer/util"
-	"github.com/decred/gominer/work"
+	"github.com/chainchip/gominer/blake256"
+	"github.com/chainchip/gominer/util"
+	"github.com/chainchip/gominer/work"
 )
 
 var chainParams = &chaincfg.MainNetParams
@@ -52,6 +52,7 @@ func (d *Device) updateCurrentWork() {
 		// without blocking if there's not.
 		select {
 		case w = <-d.newWork:
+			d.extraNonce = d.extraNonce & 0xFFFF0000
 		default:
 			return
 		}
@@ -71,7 +72,7 @@ func (d *Device) updateCurrentWork() {
 	minrLog.Tracef("pre-nonce: %v", hex.EncodeToString(d.work.Data[:]))
 
 	// Bump and set the work ID if the work is new.
-	d.currentWorkID++
+	//d.currentWorkID++  //d.currentWorkID = 0
 	binary.LittleEndian.PutUint32(d.work.Data[128+4*work.Nonce2Word:],
 		d.currentWorkID)
 

@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/decred/gominer/stratum"
-	"github.com/decred/gominer/work"
+	"github.com/chainchip/gominer/stratum"
+	"github.com/chainchip/gominer/work"
 )
 
 type Miner struct {
